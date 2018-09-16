@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_compresion"
+            android:icon="@drawable/ic_compress"
+            android:title="@string/Comprimir"
+            android:visible="true" />
+        <item
+            android:id="@+id/nav_decompression"
+            android:icon="@drawable/ic_decompress"
+            android:title="@string/Descomprimir"
+            android:visible="true" />
+    </group>
+
+    <item android:title="Historial">
+        <menu>
+            <item
+                android:id="@+id/bitacora"
+                android:title="Bitácora"
+                android:icon="@drawable/ic_bitacora"/>
+        </menu>
+    </item>
+
+
+</menu>

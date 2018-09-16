@@ -1,3 +1,7 @@
 <resources>
-    <string name="app_name">LAB1ED2</string>
+    <string name="app_name">HUFFMAN-LZW</string>
+    <string name="Descomprimir">Descomprimir</string>
+    <string name="Comprimir">Comprimir</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>
