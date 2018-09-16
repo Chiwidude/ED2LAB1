@@ -16,13 +16,25 @@
             android:title="@string/Descomprimir"
             android:visible="true" />
     </group>
+    <item android:title="Algoritmo LZW">
+        <menu>
+            <item
+                android:id="@+id/nav_compressLZW"
+                android:icon="@drawable/ic_compress"
+                android:title="Comprimir" />
+            <item
+                android:id="@+id/nav_decompressLZW"
+                android:icon="@drawable/ic_decompress"
+                android:title="Descomprimir" />
+        </menu>
+    </item>
 
     <item android:title="Historial">
         <menu>
             <item
                 android:id="@+id/bitacora"
-                android:title="Bitácora"
-                android:icon="@drawable/ic_bitacora"/>
+                android:icon="@drawable/ic_bitacora"
+                android:title="Mis Compresiones" />
         </menu>
     </item>
 
