@@ -29,7 +29,6 @@ public class Huffman {
      * Crea la tabla de frecuencia de caracteres
      * @param line, texto leido desde el archivo
      */
-    @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void FillTable (String line) {
         for(char c :line.toCharArray()) {
@@ -55,7 +54,6 @@ public class Huffman {
     /**
      * Ejecuta el Algoritmo de Huffman
      */
-    @TargetApi(Build.VERSION_CODES.N)
     @RequiresApi(api = Build.VERSION_CODES.N)
     private void Algorithm() {
         charList.sort(compare);
@@ -129,7 +127,7 @@ public class Huffman {
             CodingPrefix(node.Left,Prefixtable,code.concat("0"));
             CodingPrefix(node.Right,Prefixtable,code.concat("1"));
             if(node.isLeaf()) {
-                Prefixtable.put(node.value.getCaracter(), code);
+                Prefixtable.put(node.value.getCaracter(), node.value.getBincode());
             }
 
         }
@@ -224,9 +222,8 @@ public class Huffman {
         for(int i = 0; i<byter.size(); i++) {
             byter_[i] = byter.get(i);
         }
-        String newString = new String(byter_,"UTF-8");
-
-        return newString;
+        String newstring = new String(byter_,"US-ASCII");
+        return newstring;
     }
 
     public String ConvertToBinary(String ascii) throws UnsupportedEncodingException {

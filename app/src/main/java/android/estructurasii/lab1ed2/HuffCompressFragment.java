@@ -23,7 +23,6 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -32,9 +31,10 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.text.DecimalFormat;
 import java.io.File;
+import java.util.List;
 
 public class HuffCompressFragment extends Fragment {
-    Button bcompress;
+
     private static final int READ_REQUEST_CODE = 42;
     Huffman Algorithm;
     TextView fileview;
@@ -43,13 +43,14 @@ public class HuffCompressFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.fragment_compress,container,false);
-        bcompress = view.findViewById(R.id.button);
-        fileview = view.findViewById(R.id.textcompress);
+       final Button bcompress = view.findViewById(R.id.button);
+        fileview = view.findViewById(R.id.textdecompress);
         Algorithm = new Huffman();
         bcompress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_OPEN_DOCUMENT);
 
 
                 intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -104,22 +105,22 @@ public class HuffCompressFragment extends Fragment {
                     resultsAscii[i-1] = Asciistring.toString();
                 }
                 File storage = new File(Environment.getExternalStorageDirectory(),"Compresion");
-                if(storage.exists()== true){
+                if(!storage.exists()){
                     storage.mkdirs();
                 }
-                File path = new File(storage,uri_.getPath()+".huff");
+                File path = new File(storage,"Documents"+".huff");
                 FileOutputStream outputStream = new FileOutputStream(path);
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream,"UTF-8");
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
                 BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
                 bufferedWriter.write(resultArray.get(0));
                 bufferedWriter.newLine();
                 for(int i = 0; i<resultsAscii.length; i++) {
-                    bufferedWriter.write(resultsAscii[i]);
+                    bufferedWriter.write(resultsAscii[i].toCharArray());
                     bufferedWriter.newLine();
                 }
                 bufferedWriter.flush();
                 bufferedWriter.close();
-                Toast.makeText(getContext(),"Guardado en compresiones"+"/"+uri_.getPath()+".huff", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Guardado en compresiones"+"/"+"Documents"+".huff", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
