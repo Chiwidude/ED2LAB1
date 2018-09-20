@@ -82,7 +82,7 @@ public class Huffman {
             if(i == data.size()-1) {
                 freq.append(data.keySet().toArray()[i]);
             } else {
-                freq.append(data.keySet().toArray()[i]+",");
+                freq.append(data.keySet().toArray()[i]+"~");
             }
         }
         resultado.append(freq.toString());
@@ -163,7 +163,7 @@ public class Huffman {
         int entities = Integer.parseInt(table.substring(0, format));
         int newrange = format+(entities*2)-1;
         String characters = table.substring(format, newrange);
-        String[] charactrs = characters.split(",");
+        String[] charactrs = characters.split("~");
         String frecuencies = table.substring(newrange,newrange+(format*entities)+(entities-1));
         String[] frecuencs = frecuencies.split(",");
         // Llena una lista de nodos con valores caracter y frecuencia
@@ -231,7 +231,7 @@ public class Huffman {
         String toRead = ascii.substring(0,format);
         int size = Integer.parseInt(toRead);
         String ascii_ = ascii.substring(format, ascii.length());
-        byte[] asciiBytes = ascii_.getBytes("UTF-8");
+        byte[] asciiBytes = ascii_.getBytes("US-ASCII");
         StringBuilder asciiResult = new StringBuilder();
         for(int i = 0; i<asciiBytes.length;i++) {
             String binaryByte = Integer.toBinaryString(asciiBytes[i]);

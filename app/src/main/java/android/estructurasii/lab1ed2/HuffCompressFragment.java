@@ -32,6 +32,8 @@ import java.util.ArrayList;
 import java.text.DecimalFormat;
 import java.io.File;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HuffCompressFragment extends Fragment {
 
@@ -99,6 +101,7 @@ public class HuffCompressFragment extends Fragment {
                 for(int i = 1; i<resultArray.size(); i++) {
                     size = resultArray.get(i).length();
                     String Ascii = Algorithm.ConvertToASCII(resultArray.get(i));
+                    Ascii = ChangeTroubleStrings(Ascii);
                     NumberFormat formatter = new DecimalFormat("000000");
                     StringBuilder Asciistring = new StringBuilder(formatter.format(size));
                     Asciistring.append(Ascii);
@@ -116,7 +119,7 @@ public class HuffCompressFragment extends Fragment {
                 bufferedWriter.newLine();
                 for(int i = 0; i<resultsAscii.length; i++) {
                     bufferedWriter.write(resultsAscii[i].toCharArray());
-                    bufferedWriter.newLine();
+                    bufferedWriter.write("σ");
                 }
                 bufferedWriter.flush();
                 bufferedWriter.close();
@@ -128,5 +131,32 @@ public class HuffCompressFragment extends Fragment {
             }
         }
     }
+    private String ChangeTroubleStrings (String linetochange){
+        if(linetochange.contains("\n")) {
+            linetochange = linetochange.replaceAll(Pattern.quote("\n"), Matcher.quoteReplacement("ε"));
+        }
+        if(linetochange.contains("\t")) {
+            linetochange = linetochange.replaceAll(Pattern.quote("\t"), Matcher.quoteReplacement("Φ"));
+        }
+        if(linetochange.contains("\r")) {
+            linetochange = linetochange.replaceAll(Pattern.quote("\r"), Matcher.quoteReplacement("η"));
+        }
+        if(linetochange.contains("\f")) {
+            linetochange = linetochange.replaceAll(Pattern.quote("\f"), Matcher.quoteReplacement("θ"));
+        }
+        if(linetochange.contains("\b")) {
+            linetochange = linetochange.replaceAll(Pattern.quote("\b"), Matcher.quoteReplacement("μ"));
+        }
+        if(linetochange.contains("\"")) {
+            linetochange = linetochange.replaceAll(Pattern.quote("\""), Matcher.quoteReplacement("φ"));
+        }
+        if(linetochange.contains("\'")){
+            linetochange = linetochange.replaceAll(Pattern.quote("\'"), Matcher.quoteReplacement("λ"));
+        }
+
+        return linetochange;
+
+    }
+
 
 }

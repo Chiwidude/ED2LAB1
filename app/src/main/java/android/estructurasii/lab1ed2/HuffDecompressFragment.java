@@ -31,6 +31,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class HuffDecompressFragment extends Fragment {
     private static final int WRITE_REQUEST_CODE = 43;
@@ -78,10 +80,18 @@ public class HuffDecompressFragment extends Fragment {
                 String caracteres = br.readLine();
                 ArrayList<String> stringsarray = new ArrayList<>();
                 Algorithm.DecomTable(caracteres);
+                StringBuilder str = new StringBuilder();
                 String linea;
                 while((linea = br.readLine()) != null){
-                    stringsarray.add(linea);
+
+                    linea = RevertChanges(linea);
+                    str.append(linea);
                 }
+                String[] lines = str.toString().split("σ");
+                for(int i = 0; i<lines.length; i++){
+                    stringsarray.add(lines[i]);
+                }
+
                 String[] resultsBinary = new String[stringsarray.size()];
                 for(int i = 0; i<stringsarray.size();i++) {
                     resultsBinary[i] = Algorithm.ConvertToBinary(stringsarray.get(i));
@@ -116,5 +126,32 @@ public class HuffDecompressFragment extends Fragment {
 
 
         }
+
+    }
+
+    private String RevertChanges(String revert){
+        if(revert.contains("ε")) {
+            revert = revert.replaceAll(Pattern.quote("ε"), Matcher.quoteReplacement("\n"));
+        }
+        if(revert.contains("η")) {
+            revert = revert.replaceAll(Pattern.quote("η"), Matcher.quoteReplacement("\r"));
+        }
+        if(revert.contains("Φ")) {
+            revert = revert.replaceAll(Pattern.quote("Φ"), Matcher.quoteReplacement("\t"));
+        }
+        if(revert.contains("θ")) {
+            revert = revert.replaceAll(Pattern.quote("θ"), Matcher.quoteReplacement("\f"));
+        }
+        if(revert.contains("μ")) {
+            revert = revert.replaceAll(Pattern.quote("μ"), Matcher.quoteReplacement("\b"));
+        }
+        if(revert.contains("φ")) {
+            revert = revert.replaceAll(Pattern.quote("φ"), Matcher.quoteReplacement("\""));
+        }
+        if(revert.contains("λ")){
+            revert = revert.replaceAll(Pattern.quote("λ"), Matcher.quoteReplacement("\'"));
+        }
+
+        return revert;
     }
 }
