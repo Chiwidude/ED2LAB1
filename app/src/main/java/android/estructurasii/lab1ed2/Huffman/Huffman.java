@@ -249,6 +249,6 @@ public class Huffman {
 
         }
         String result = asciiResult.toString().substring(0, size);
-        return result;
+            return result;
     }
 }

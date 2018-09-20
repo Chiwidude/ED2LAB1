@@ -19,6 +19,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -81,13 +82,13 @@ public class HuffDecompressFragment extends Fragment {
                 while((linea = br.readLine()) != null){
                     stringsarray.add(linea);
                 }
-                String[] resultsBinary = new String[stringsarray.size()-1];
-                for(int i = 1; i<stringsarray.size();i++) {
-                    resultsBinary[i-1] = Algorithm.ConvertToBinary(stringsarray.get(i));
+                String[] resultsBinary = new String[stringsarray.size()];
+                for(int i = 0; i<stringsarray.size();i++) {
+                    resultsBinary[i] = Algorithm.ConvertToBinary(stringsarray.get(i));
                 }
                 ArrayList<String> resultArray = new ArrayList<>();
                 for(int i = 0; i<resultsBinary.length;i++){
-                    resultArray.add(Algorithm.Compress(resultsBinary[i]));
+                    resultArray.add(Algorithm.Decompress(resultsBinary[i]));
                 }
                 File storage = new File(Environment.getExternalStorageDirectory(),"Descompresión");
                 if(!storage.exists()){
@@ -102,6 +103,9 @@ public class HuffDecompressFragment extends Fragment {
                     bufferedWriter.write(resultArray.get(i));
                     bufferedWriter.newLine();
                 }
+                bufferedWriter.flush();
+                bufferedWriter.close();
+                Toast.makeText(getContext(),"Guardado en Descompresiones"+"/"+"Documents"+".txt", Toast.LENGTH_LONG).show();
 
 
             } catch (FileNotFoundException e) {
