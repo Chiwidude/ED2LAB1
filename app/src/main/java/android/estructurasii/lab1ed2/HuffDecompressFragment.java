@@ -36,12 +36,18 @@ public class HuffDecompressFragment extends Fragment {
     private static final int WRITE_REQUEST_CODE = 43;
     Huffman Algorithm;
     TextView fileview;
+    Button btnRuta;
+    Button btnSave;
+    TextView Ruta;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
             final View view = inflater.inflate(R.layout.fragment_decompress,container,false);
         final Button debcompress = view.findViewById(R.id.button1);
+        btnRuta = (Button)view.findViewById(R.id.bAbrir);
+        btnSave = (Button)view.findViewById(R.id.btnGuardar);
         fileview = view.findViewById(R.id.textcompress);
+        Ruta = view.findViewById(R.id.tvRuta);
         Algorithm = new Huffman();
         debcompress.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,6 +101,9 @@ public class HuffDecompressFragment extends Fragment {
                     storage.mkdirs();
                 }
                 File path = new File(storage,"Documents"+".txt");
+                //Agregado
+                Ruta.setText(path.getPath().toString());
+                //
                 FileOutputStream outputStream = new FileOutputStream(path);
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
                 BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
@@ -117,4 +126,11 @@ public class HuffDecompressFragment extends Fragment {
 
         }
     }
+
+   // public void CambiarActividad(View view)
+    //{
+     //   Intent ventana = new Intent(this, FileChooser.class);
+     //   startActivity(ventana);
+   // }
+
 }
