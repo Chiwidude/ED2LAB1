@@ -2,12 +2,17 @@ package android.estructurasii.lab1ed2;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentUris;
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.estructurasii.lab1ed2.Huffman.Huffman;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.DocumentsContract;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -157,6 +162,5 @@ public class HuffCompressFragment extends Fragment {
         return linetochange;
 
     }
-
 
 }
