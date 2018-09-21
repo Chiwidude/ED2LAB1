@@ -16,9 +16,8 @@
         android:id="@+id/button1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="189dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/btnGuardar"
         android:text="Seleccionar Archivo a Descomprimir" />
 
     <Button
@@ -43,10 +42,11 @@
         android:id="@+id/btnGuardar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="207dp"
-        android:text="Guardar Archivo" />
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="248dp"
+        android:text="Guardar Archivo"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/textView3"
@@ -62,7 +62,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_centerVertical="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="195dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
@@ -70,8 +71,9 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/etNombre"
         android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="168dp"
         android:text="Nombre de Archivo" />
 
 </RelativeLayout>
