@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.provider.OpenableColumns;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -72,7 +73,7 @@ public class HuffCompressFragment extends Fragment {
         return view;
 
     }
-    @TargetApi(Build.VERSION_CODES.N)
+
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onActivityResult(int requestCode, int resultCode,
@@ -116,7 +117,8 @@ public class HuffCompressFragment extends Fragment {
                 if(!storage.exists()){
                     storage.mkdirs();
                 }
-                File path = new File(storage,"Documents"+".huff");
+                File tempfile = new File(uri_.getPath());
+                File path = new File(storage,tempfile.getName()+".huff");
                 FileOutputStream outputStream = new FileOutputStream(path);
                 OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
                 BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
@@ -128,7 +130,7 @@ public class HuffCompressFragment extends Fragment {
                 }
                 bufferedWriter.flush();
                 bufferedWriter.close();
-                Toast.makeText(getContext(),"Guardado en compresiones"+"/"+"Documents"+".huff", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(),"Guardado en compresiones"+"/"+tempfile.getName()+".huff", Toast.LENGTH_LONG).show();
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -162,5 +164,6 @@ public class HuffCompressFragment extends Fragment {
         return linetochange;
 
     }
+
 
 }
