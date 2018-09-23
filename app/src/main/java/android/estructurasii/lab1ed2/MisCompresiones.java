@@ -12,6 +12,8 @@ public class MisCompresiones extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_miscompresiones,container,false);
+          final View myCompress = inflater.inflate(R.layout.fragment_miscompresiones,container,false);
+
+          return myCompress;
     }
 }
