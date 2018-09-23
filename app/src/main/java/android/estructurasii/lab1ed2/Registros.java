@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.nio.Buffer;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.Stack;
 
 public class Registros {
@@ -32,12 +34,14 @@ public class Registros {
         File compress_ = new File(compress);
         newregister[1] = compress_.getName() +":" + compress_.getPath();
         long sizecompress = compress_.length();
-        double razon = ((double) (sizecompress/sizeoriginal))*100;
-        double factor = ((double)(sizeoriginal/sizecompress))*100;
-        newregister[2] = String.valueOf(razon);
-        newregister[3] = String.valueOf(factor);
-        double porcentaje = Math.abs((sizeoriginal-sizecompress)/sizeoriginal)*100;
-        newregister[4] = String.valueOf(porcentaje);
+        NumberFormat formatter = new DecimalFormat("000.00");
+        double razon = ((double) sizecompress/sizeoriginal)*100;
+        double factor = ((double)sizeoriginal/sizecompress)*100;
+        newregister[2] = formatter.format(razon);
+        newregister[3] = formatter.format(factor);
+        NumberFormat format = new DecimalFormat("00.00");
+        double porcentaje = Math.abs(((double) sizeoriginal-sizecompress)/sizeoriginal)*100;
+        newregister[4] = format.format(porcentaje);
         registers.add(newregister);
         File directory = new File("/storage/emulated/0/","misCompresiones");
         if(!directory.exists()){
