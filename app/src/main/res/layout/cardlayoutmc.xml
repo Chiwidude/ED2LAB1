@@ -19,19 +19,28 @@
             <TextView
                 android:id="@+id/TextView02"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TextView01"/>
             <TextView
                 android:id="@+id/TextView03"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TextView02"/>
             <TextView
                 android:id="@+id/TextView04"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TextView03"/>
             <TextView
                 android:id="@+id/TextView05"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TextView04"/>
+            <TextView
+                android:id="@+id/TextView06"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/TextView05"/>
 
 
         </RelativeLayout>

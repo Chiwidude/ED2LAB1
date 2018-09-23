@@ -2,11 +2,13 @@ package android.estructurasii.lab1ed2;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.estructurasii.lab1ed2.Huffman.Huffman;
+import android.estructurasii.lab1ed2.Huffman.pathProvider;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.CursorLoader;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,6 +49,7 @@ public class HuffCompressFragment extends Fragment {
     private static final int READ_REQUEST_CODE = 42;
     Huffman Algorithm;
     TextView fileview;
+    Registros register;
 
     @Nullable
     @Override
@@ -54,6 +58,7 @@ public class HuffCompressFragment extends Fragment {
        final Button bcompress = view.findViewById(R.id.button);
         fileview = view.findViewById(R.id.textdecompress);
         Algorithm = new Huffman();
+        register = new Registros();
         bcompress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +122,7 @@ public class HuffCompressFragment extends Fragment {
                 if(!storage.exists()){
                     storage.mkdirs();
                 }
+
                 File tempfile = new File(uri_.getPath());
                 File path = new File(storage,tempfile.getName()+".huff");
                 FileOutputStream outputStream = new FileOutputStream(path);
@@ -131,6 +137,8 @@ public class HuffCompressFragment extends Fragment {
                 bufferedWriter.flush();
                 bufferedWriter.close();
                 Toast.makeText(getContext(),"Guardado en compresiones"+"/"+tempfile.getName()+".huff", Toast.LENGTH_LONG).show();
+                pathProvider pathProvider_ = new pathProvider();
+                register.AddRegister(path.getPath(),pathProvider_.getPath(getContext(),uri_),"Huffman");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -138,32 +146,34 @@ public class HuffCompressFragment extends Fragment {
             }
         }
     }
-    private String ChangeTroubleStrings (String linetochange){
-        if(linetochange.contains("\n")) {
+    private String ChangeTroubleStrings (String linetochange) {
+        if (linetochange.contains("\n")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\n"), Matcher.quoteReplacement("ε"));
         }
-        if(linetochange.contains("\t")) {
+        if (linetochange.contains("\t")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\t"), Matcher.quoteReplacement("Φ"));
         }
-        if(linetochange.contains("\r")) {
+        if (linetochange.contains("\r")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\r"), Matcher.quoteReplacement("η"));
         }
-        if(linetochange.contains("\f")) {
+        if (linetochange.contains("\f")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\f"), Matcher.quoteReplacement("θ"));
         }
-        if(linetochange.contains("\b")) {
+        if (linetochange.contains("\b")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\b"), Matcher.quoteReplacement("μ"));
         }
-        if(linetochange.contains("\"")) {
+        if (linetochange.contains("\"")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\""), Matcher.quoteReplacement("φ"));
         }
-        if(linetochange.contains("\'")){
+        if (linetochange.contains("\'")) {
             linetochange = linetochange.replaceAll(Pattern.quote("\'"), Matcher.quoteReplacement("λ"));
         }
 
         return linetochange;
-
     }
+
+
+
 
 
 }
