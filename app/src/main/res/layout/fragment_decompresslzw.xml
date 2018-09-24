@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textcompress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="223dp"
+        android:text="Compresión LZW" />
+
+    <TextView
+        android:id="@+id/anunciolzw"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonselectpath_"
+        android:text="Sino elige ruta, se eligirá una ruta por usted"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/buttonlzw_"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="152dp"
+        android:text="Seleccionar Archivo" />
+
+    <Button
+        android:id="@+id/buttonselectpath_"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="Seleccionar Ruta resultado"
+
+        />
+
+    <EditText
+        android:id="@+id/edNombre"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonlzw_"
+        android:layout_alignParentStart="true"
+        android:layout_marginBottom="-152dp"
+        android:layout_below="@+id/anunciolzw"
+        android:background="@android:color/darker_gray"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+</RelativeLayout>

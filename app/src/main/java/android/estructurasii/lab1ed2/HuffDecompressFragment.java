@@ -57,7 +57,6 @@ public class HuffDecompressFragment extends Fragment {
         final View view = inflater.inflate(R.layout.fragment_decompress,container,false);
         final Button debcompress = view.findViewById(R.id.button1);
         final Button btnRuta = view.findViewById(R.id.btnRutaSv);
-        final Button btnSave = view.findViewById(R.id.btnGuardar);
         final EditText NombreArchivo = view.findViewById(R.id.etNombre);
         fileview = view.findViewById(R.id.textcompress);
         Ruta = view.findViewById(R.id.tvRuta);

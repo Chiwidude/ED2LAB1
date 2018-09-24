@@ -48,11 +48,16 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.bitacora:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
                         new MisCompresiones()).commit();
+                Toast.makeText(this,"Mis Compresiones",Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_compressLZW:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new LZWCompressFragment()).commit();
                 Toast.makeText(this,"Compresión LZW",Toast.LENGTH_LONG).show();
                 break;
             case R.id.nav_decompressLZW:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container,
+                        new LZWDecompressFragment()).commit();
                 Toast.makeText(this,"Descompresión LZW",Toast.LENGTH_LONG).show();
                 break;
 

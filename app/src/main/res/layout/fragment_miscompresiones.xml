@@ -3,7 +3,17 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+    <TextView
+        android:text="Mis Compresiones"
+        android:id="@+id/titulomiscompresiones"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:textStyle="bold"
+
+        />
     <android.support.v7.widget.RecyclerView
+        android:layout_below="@+id/titulomiscompresiones"
         android:id="@+id/myRV"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
