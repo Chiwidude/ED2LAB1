@@ -3,6 +3,7 @@ package android.estructurasii.lab1ed2;
 import android.app.Activity;
 import android.content.Intent;
 import android.estructurasii.lab1ed2.Huffman.pathProvider;
+import android.estructurasii.lab1ed2.LZW.LZWAlgrth;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -15,14 +16,26 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LZWDecompressFragment extends Fragment {
     private static final int READ_REQUEST_CODE = 42;
     private static final int READ_SELECT_CODE = 43;
     String solver =  "/storage/emulated/0/Descompresiones/";
     String NameToSave = "";
-    Registros register;
+    LZWAlgrth Algorithm;
+
 
     @Nullable
     @Override
@@ -31,7 +44,7 @@ public class LZWDecompressFragment extends Fragment {
          final Button btnruta = view.findViewById(R.id.buttonselectpath_);
          final Button selectFile = view.findViewById(R.id.buttonlzw_);
          final EditText NombreArchivo = view.findViewById(R.id.edNombre);
-         register = new Registros();
+         Algorithm = new LZWAlgrth(false);
          btnruta.setOnClickListener(new View.OnClickListener(){
 
              @Override
@@ -71,14 +84,48 @@ public class LZWDecompressFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, resultData);
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK) {
             Uri selectedFile = resultData.getData();
-            // se convierte el Uri a file para obtener el nombre del archivo
-             // nombre de nuevo archivo igual al archivo elegido
-            // archivo a escribir
-            File newfile = new File(solver, NameToSave + ".txt");
-            Toast.makeText(getContext(), "Guardado en" + solver + NameToSave + ".txt", Toast.LENGTH_LONG).show();
-            pathProvider provider = new pathProvider();
-            //se guarda en bitácora
-            register.AddRegister(newfile.getPath(), provider.getPath(getContext(), selectedFile), "LZW");
+            try {
+                InputStream input = getContext().getContentResolver().openInputStream(selectedFile);
+                BufferedReader br = new BufferedReader(new InputStreamReader(input));
+                String caracteres = br.readLine();
+                ArrayList<String> stringsarray = new ArrayList<>();
+                Algorithm.ReBuildDictionary(caracteres);
+                StringBuilder str = new StringBuilder();
+                String linea;
+                while((linea = br.readLine()) != null){
+
+                    linea = RevertChanges(linea);
+                    str.append(linea);
+                }
+                String[] lines = str.toString().split("ꡐ");
+                for(int i = 0; i<lines.length; i++){
+                    stringsarray.add(lines[i]);
+                }
+                String[] results = new String[stringsarray.size()];
+                for(int i = 0; i<stringsarray.size();i++){
+                    results[i] = Algorithm.deCompress(stringsarray.get(i));
+                }
+                // archivo a escribir
+                // nombre de nuevo archivo igual al archivo elegido
+                File newfile = new File(solver, NameToSave + ".txt");
+                FileOutputStream outputStream = new FileOutputStream(newfile);
+                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
+                BufferedWriter bufferedWriter = new BufferedWriter(outputStreamWriter);
+                for(int i = 0; i<stringsarray.size();i++){
+                    bufferedWriter.write(results[i]);
+                    bufferedWriter.newLine();
+                }
+                bufferedWriter.flush();
+                bufferedWriter.close();
+
+
+                Toast.makeText(getContext(), "Guardado en" + solver +"/"+ NameToSave + ".txt", Toast.LENGTH_LONG).show();
+                //se guarda en bitácora
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 
 
         }
@@ -89,5 +136,30 @@ public class LZWDecompressFragment extends Fragment {
             solver = provider.getFullPathFromTreeUri(selected, getContext());
 
         }
+    }
+    private String RevertChanges(String revert){
+        if(revert.contains("ꦃ")) {
+            revert = revert.replaceAll(Pattern.quote("ꦃ"), Matcher.quoteReplacement("\n"));
+        }
+        if(revert.contains("ꦄ")) {
+            revert = revert.replaceAll(Pattern.quote("ꦄ"), Matcher.quoteReplacement("\r"));
+        }
+        if(revert.contains("ﬀ")) {
+            revert = revert.replaceAll(Pattern.quote("ﬀ"), Matcher.quoteReplacement("\t"));
+        }
+        if(revert.contains("ﬆ")) {
+            revert = revert.replaceAll(Pattern.quote("ﬆ"), Matcher.quoteReplacement("\f"));
+        }
+        if(revert.contains("ﬡ")) {
+            revert = revert.replaceAll(Pattern.quote("ﬡ"), Matcher.quoteReplacement("\b"));
+        }
+        if(revert.contains("תּ")) {
+            revert = revert.replaceAll(Pattern.quote("תּ"), Matcher.quoteReplacement("\""));
+        }
+        if(revert.contains("פֿ")){
+            revert = revert.replaceAll(Pattern.quote("פֿ"), Matcher.quoteReplacement("\'"));
+        }
+
+        return revert;
     }
 }

@@ -142,10 +142,13 @@ public class HuffDecompressFragment extends Fragment {
                         linea = RevertChanges(linea);
                         str.append(linea);
                     }
+                    br.close();
+                    input.close();
                     String[] lines = str.toString().split("σ");
                     for(int i = 0; i<lines.length; i++){
                         stringsarray.add(lines[i]);
                     }
+
 
                     String[] resultsBinary = new String[stringsarray.size()];
                     for(int i = 0; i<stringsarray.size();i++) {
